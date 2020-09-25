@@ -27,7 +27,7 @@ jobs:
     env:
       DISCID_VERSION: 0.6.2
       FPCALC_VERSION: 1.5.0
-      PYTHON_VERSION: 3.7.6
+      PYTHON_VERSION: 3.7.61
       MACOSX_DEPLOYMENT_TARGET: 10.12
     steps:
     - uses: actions/checkout@v2
@@ -41,8 +41,8 @@ jobs:
         key: ${{ runner.os }}-libdiscid-${{ env.DISCID_VERSION }}-${{ env.MACOSX_DEPLOYMENT_TARGET }}
     - name: Setup macOS build environment
       run: |
-        ./scripts/package/macos-setup.sh
-        PYTHON_BASE_VERSION=$(echo $PYTHON_VERSION | sed -e "s/\.[0-9]\+$//")
+        # ./scripts/package/macos-setup.sh
+        PYTHON_BASE_VERSION=$(echo $PYTHON_VERSION | sed -e "s/\.[0-9]\{1,\}$//")
         echo "::add-path::/Library/Frameworks/Python.framework/Versions/$PYTHON_BASE_VERSION/bin"
         echo "::add-path::/usr/local/opt/gettext/bin"
         RELEASE_TAG=$(git describe --match "release-*" --abbrev=0 --always HEAD)
